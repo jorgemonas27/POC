@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="DataAccess.Models.ClientOrder,DataAccess" table="FactoryOrder">
+    <id name="IdOrder" column="Id" type="int">
+      <generator class="assigned" />
+    </id>
+    <property name="NameOrderField" column="NameOrder" type="String" length="200"/>
+    <property name="DeliveryDateOrderField" column="DeliveryOrder" type="String" length="200"/>
+  </class>
+</hibernate-mapping>
