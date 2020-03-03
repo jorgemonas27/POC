@@ -1,1 +1,2 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="WCFCrud.OrderService" CodeBehind="OrderService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="WCFCrud.OrderService" CodeBehind="OrderService.svc.cs" 
+    Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration" %>

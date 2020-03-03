@@ -4,7 +4,18 @@
     <id name="IdOrder" column="Id" type="int">
       <generator class="assigned" />
     </id>
-    <property name="NameOrderField" column="NameOrder" type="String" length="200"/>
-    <property name="DeliveryDateOrderField" column="DeliveryOrder" type="String" length="200"/>
+    <property name="NameCompany" column="Company" type="String" length="200"/>
+    <property name="OriginCountry" column="Origin_Country" type="String" length="200"/>
+    <property name="OriginState" column="Origin_State" type="String" length="200"/>
+    <property name="OriginCity" column="Origin_City" type="String" length="200"/>
+    <property name="OriginAddress" column="Origin_Address" type="String" length="200"/>
+    <property name="DestinationCountry" column="Destination_Country" type="String" length="200"/>
+    <property name="DestinationCity" column="Destination_City" type="String" length="200"/>
+    <property name="DestinationAddress" column="Destination_Address" type="String" length="200"/>
+    <property name="DestinationState" column="Destination_State" type="String" length="200"/>
+    <property name="Status" column="StatusOrder" type="String" length="200"/>
+    <property name="Description" column="DescriptionOrder" type="String" length="200"/>
+    <property name="IdShipment" column="Id_Shipment" type="int"/>
+    <property name="IdLoad" column="Id_Load" type="int"/>
   </class>
 </hibernate-mapping>

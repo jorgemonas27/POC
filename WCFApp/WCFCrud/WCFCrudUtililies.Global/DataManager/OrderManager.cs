@@ -90,8 +90,19 @@ namespace WCFCrudUtililies.Global.DataManager
                     using (var transaction = session.BeginTransaction())
                     {
                         var orderUpdate = session.Get<ClientOrder>(Convert.ToInt32(id));
-                        orderUpdate.NameOrderField = element.NameOrderField;
-                        orderUpdate.DeliveryDateOrderField = element.DeliveryDateOrderField;
+                        orderUpdate.NameCompany = element.NameCompany;
+                        orderUpdate.Description = element.Description;
+                        orderUpdate.DestinationAddress = element.DestinationAddress;
+                        orderUpdate.DestinationCity = element.DestinationCity;
+                        orderUpdate.DestinationCountry = element.DestinationCountry;
+                        orderUpdate.DestinationState = element.DestinationState;
+                        orderUpdate.OriginAddress = element.OriginAddress;
+                        orderUpdate.OriginCity = element.OriginCity;
+                        orderUpdate.OriginAddress = element.OriginAddress;
+                        orderUpdate.OriginCountry = element.OriginCountry;
+                        orderUpdate.IdLoad = element.IdLoad;
+                        orderUpdate.IdShipment = element.IdShipment;
+                        orderUpdate.Status = element.Status;
                         session.Update(orderUpdate);
                         transaction.Commit();
                     }

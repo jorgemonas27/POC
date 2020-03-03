@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="DataAccessNF.Models.ClientLoad, DataAccessNF" table="FactoryLoad">
+    <id name="IdLoad" column="Id" type="int">
+      <generator class="assigned" />
+    </id>
+    <property name="Destination" column="DestinationLoad" type="String" length="200"/>
+  </class>
+</hibernate-mapping>

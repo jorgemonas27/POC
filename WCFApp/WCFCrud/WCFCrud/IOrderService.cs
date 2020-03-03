@@ -41,7 +41,18 @@ namespace WCFCrud
     {
         int oId;
         string orName = string.Empty;
-        string orDelivery = string.Empty;
+        string orCity = string.Empty;
+        string orState = string.Empty;
+        string orAddress = string.Empty;
+        string orCountry = string.Empty;
+        string orDesCity = string.Empty;
+        string orDesState = string.Empty;
+        string orDesAddress = string.Empty;
+        string orDesCountry = string.Empty;
+        string orStatus = string.Empty;
+        string orDescription = string.Empty;
+        int orIdShipment;
+        int orIdLoad;
 
         [DataMember]
         public int Id
@@ -58,10 +69,87 @@ namespace WCFCrud
         }
 
         [DataMember]
-        public string DeliveryOrder
+        public string OriginCountry
         {
-            get { return orDelivery; }
-            set { orDelivery = value; }
+            get { return orCountry; }
+            set { orCountry = value; }
+        }
+
+        [DataMember]
+        public string OriginState
+        {
+            get { return orState; }
+            set { orState = value; }
+        }
+
+        [DataMember]
+        public string OriginCity
+        {
+            get { return orCity; }
+            set { orCity = value; }
+        }
+
+        [DataMember]
+        public string OriginAddress
+        {
+            get { return orAddress; }
+            set { orAddress = value; }
+        }
+
+        [DataMember]
+        public string DestinationCountry
+        {
+            get { return orDesCountry; }
+            set { orDesCountry = value; }
+        }
+
+        [DataMember]
+        public string DestinationState
+        {
+            get { return orDesState; }
+            set { orDesState = value; }
+        }
+
+        [DataMember]
+        public string DestinationCity
+        {
+            get { return orDesCity; }
+            set { orDesCity = value; }
+        }
+
+        [DataMember]
+        public string DestinationAddress
+        {
+            get { return orDesAddress; }
+            set { orDesAddress = value; }
+        }
+
+        [DataMember]
+        public string Status
+        {
+            get { return orStatus; }
+            set { orStatus = value; }
+        }
+
+        [DataMember]
+        public string Description
+        {
+            get { return orDescription; }
+            set { orDescription = value; }
+        }
+
+        [DataMember]
+        public int IdLoad
+        {
+            get { return orIdLoad; }
+            set { orIdLoad = value; }
+        }
+
+        [DataMember]
+        public int IdShipment
+        {
+            get { return orIdShipment; }
+            set { orIdShipment = value; }
         }
     }
 }
