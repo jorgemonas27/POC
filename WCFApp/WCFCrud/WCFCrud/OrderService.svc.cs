@@ -5,10 +5,10 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using BussinessLogic.Managers;
 using DataAccessNF.Models;
 using DataAccessNF.Services;
-using Spring.Context;
-using Spring.Context.Support;
+using WCFCrud.ModelsDTO;
 using WCFCrudUtililies.Global.Repositories;
 
 
@@ -19,14 +19,13 @@ namespace WCFCrud
     public class OrderService : IOrderService
     {
 
-        IApplicationContext app = ContextRegistry.GetContext();
         //IDataRepository<ClientOrder> _orderRepository = app["OrderManager"];
 
-        private readonly IDataRepository<ClientOrder> _dataRepository;
-        public OrderService(IDataRepository<ClientOrder> repository)
-        {
-            _dataRepository = repository;
-        }
+        //private readonly IDataRepository<ClientOrder> _dataRepository;
+        //public OrderService(IDataRepository<ClientOrder> repository)
+        //{
+        //    _dataRepository = repository;
+        //}
 
         public OrderService()
         {
@@ -34,28 +33,31 @@ namespace WCFCrud
         }
         public string DeleteData(string id)
         {
-            _dataRepository.Delete(Convert.ToInt32(id));
+            //_dataRepository.Delete(Convert.ToInt32(id));
             return "Deleted succesfully";
         }
 
         public ClientOrder GetCertainData(string id)
         {
-            return _dataRepository.Get(Convert.ToInt32(id));
+            return new ClientOrder();// _dataRepository.Get(Convert.ToInt32(id));
         }
 
         public IEnumerable<ClientOrder> GetData()
         {
-            return _dataRepository.GetAll();
+            return new List<ClientOrder>();//_dataRepository.GetAll();
         }
 
-        public string InsertData(OrdDetails order)
+        public string InsertData(OrderDTO order)
         {
             if (order == null)
             {
                 return "bad request";
             }
+
             var newOrder = Convertes.Converter.GetClientOrderObject(order);
-            _dataRepository.Add(newOrder);
+            //_dataRepository.Add(newOrder);
+            OrderManager orderManager = new OrderManager();
+            orderManager.Save(newOrder);
             return "added successfully";
         }
 
@@ -66,8 +68,8 @@ namespace WCFCrud
                 return "bad request";
             }
 
-            var updateOrder = Convertes.Converter.GetClientOrderObject(order);
-            _dataRepository.Update(Convert.ToInt32(id), updateOrder);
+            //var updateOrder = Convertes.Converter.GetClientOrderObject(order);
+            //_dataRepository.Update(Convert.ToInt32(id), updateOrder);
             return ("updated successfully");
         }
     }

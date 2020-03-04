@@ -1,20 +1,22 @@
-﻿using DataAccessNF.Models;
+﻿using BussinessLogic.DataMembers;
+using DataAccessNF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WCFCrud.ModelsDTO;
 
 namespace WCFCrud.Convertes
 {
     public static class Converter
     {
-        public static ClientOrder GetClientOrderObject(OrdDetails order)
+        public static OrderMember GetClientOrderObject(OrderDTO order)
         {
-            var newOrder = new ClientOrder()
+            var newOrder = new OrderMember()
             {
-                IdOrder = order.Id,
-                NameCompany = order.NameOrder,
+                IdOrder = order.IdOrder,
+                NameCompany = order.NameCompany,
                 OriginAddress = order.OriginAddress,
                 OriginCity = order.OriginCity,
                 OriginState = order.OriginState,

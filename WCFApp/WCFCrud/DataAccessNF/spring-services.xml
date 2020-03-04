@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
-  <object name="OrderManager" type="DataAccessNF.DataManager.OrderManager, DataAccessNF" singleton="false"/>
+  <object name="OrderOperations" type="DataAccessNF.Operations.OrderOperations, DataAccessNF" singleton="false"/>
 </objects>

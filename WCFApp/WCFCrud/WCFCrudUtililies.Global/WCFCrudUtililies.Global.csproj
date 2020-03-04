@@ -68,11 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataManager\LoadManager.cs" />
-    <Compile Include="DataManager\OrderManager.cs" />
-    <Compile Include="DataManager\ShipmentManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IDataRepository.cs" />
     <Compile Include="ResourcesFiles\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

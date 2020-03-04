@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using DataAccessNF.Models;
+using WCFCrud.ModelsDTO;
 
 namespace WCFCrud
 {
@@ -15,7 +16,7 @@ namespace WCFCrud
     {
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat =WebMessageFormat.Json, BodyStyle =WebMessageBodyStyle.Wrapped, UriTemplate ="json/post")]
-        string InsertData(OrdDetails order);
+        string InsertData(OrderDTO order);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "json/put/{id}")]
