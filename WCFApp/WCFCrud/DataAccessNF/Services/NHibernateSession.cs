@@ -14,7 +14,8 @@ namespace DataAccessNF.Services
         public static ISession OpenSession()
         {
             var configuration = new Configuration();
-            var path = HttpContext.Current.Server.MapPath("").Replace("odata","").Replace("\\WCFCrud","");
+            var path = HttpContext.Current.Server.MapPath("")
+                .Replace("odata","").Replace("\\WCFCrud","").Replace("Order","");
             var configurationPath = $@"{path}\WCFCrud\DataAccessNF\hibernate.cfg.xml";
             configuration.Configure(configurationPath);
             var orderConfigurationFile = $@"{path}\WCFCrud\DataAccessNF\Mappings\Order.hbm.xml";

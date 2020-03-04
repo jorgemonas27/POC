@@ -38,8 +38,7 @@ namespace WCFCrud.Controllers
         }
 
         [System.Web.Mvc.HttpPut]
-        [System.Web.Mvc.Route("MicrosoftDynamicsContactFieldMappings({key})")]
-        public System.Web.Http.IHttpActionResult Put([FromODataUri]string id, [System.Web.Http.FromBody] OrderDTO updateOrder)
+        public System.Web.Http.IHttpActionResult Put([FromODataUri(Name = "key")] string id, [System.Web.Http.FromBody] OrderDTO updateOrder)
         {
             if (updateOrder == null || id == null)
                 return BadRequest();
@@ -48,8 +47,7 @@ namespace WCFCrud.Controllers
         }
 
         [System.Web.Mvc.HttpDelete]
-        [System.Web.Mvc.Route("MicrosoftDynamicsContactFieldMappings({key})")]
-        public System.Web.Http.IHttpActionResult Delete([FromUri]string id)
+        public System.Web.Http.IHttpActionResult Delete([FromODataUri(Name = "key")] string id)
         {
             if (id == null)
                 return BadRequest();

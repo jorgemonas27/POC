@@ -81,7 +81,7 @@ namespace DataAccessNF.Operations
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        var orderUpdate = session.Get<OrderDB>(Convert.ToInt32(id));
+                        var orderUpdate = session.Get<ClientOrder>(Convert.ToInt32(id));
                         orderUpdate.NameCompany = element.NameCompany;
                         orderUpdate.Description = element.Description;
                         orderUpdate.DestinationAddress = element.DestinationAddress;
@@ -95,7 +95,7 @@ namespace DataAccessNF.Operations
                         orderUpdate.IdLoad = element.IdLoad;
                         orderUpdate.IdShipment = element.IdShipment;
                         orderUpdate.Status = element.Status;
-                        session.Update(Converters.CastForDB(orderUpdate));
+                        session.Update(orderUpdate);
                         transaction.Commit();
                     }
                 }
