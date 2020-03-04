@@ -13,6 +13,5 @@ namespace DataAccessNF.Repositories
         void Add(T newElement);
         void Update(int id, T element);
         void Delete(int id);
-
     }
 }

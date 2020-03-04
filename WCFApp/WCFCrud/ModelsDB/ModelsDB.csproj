@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D8223AA0-B653-48CD-86FF-A18112C80E94}</ProjectGuid>
+    <ProjectGuid>{712AB0E3-AA58-4A47-9CAD-4A93DFA6F381}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BussinessLogic</RootNamespace>
-    <AssemblyName>BussinessLogic</AssemblyName>
+    <RootNamespace>ModelsDB</RootNamespace>
+    <AssemblyName>ModelsDB</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,19 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Spring.Core, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
-      <HintPath>..\packages\Spring.Core.2.0.1\lib\net45\Spring.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,29 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\Converter.cs" />
-    <Compile Include="Managers\BaseManager.cs" />
-    <Compile Include="Managers\LoadManager.cs" />
-    <Compile Include="Managers\OrderManager.cs" />
-    <Compile Include="Managers\ShipmentsManager.cs" />
+    <Compile Include="LoadDB.cs" />
+    <Compile Include="OrderDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccessNF\DataAccessNF.csproj">
-      <Project>{542CB65B-8879-4130-BF8D-578B881F9805}</Project>
-      <Name>DataAccessNF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModelsDB\ModelsDB.csproj">
-      <Project>{712AB0E3-AA58-4A47-9CAD-4A93DFA6F381}</Project>
-      <Name>ModelsDB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModelsDTO\ModelsDTO.csproj">
-      <Project>{2060967A-5D7D-4016-9303-0F3B9C3F6877}</Project>
-      <Name>ModelsDTO</Name>
-    </ProjectReference>
+    <Compile Include="ShipmentDB.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

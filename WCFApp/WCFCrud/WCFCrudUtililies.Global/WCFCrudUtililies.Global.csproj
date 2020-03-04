@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\Converter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourcesFiles\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -82,6 +83,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BussinessLogic\BussinessLogic.csproj">
+      <Project>{D8223AA0-B653-48CD-86FF-A18112C80E94}</Project>
+      <Name>BussinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccessNF\DataAccessNF.csproj">
       <Project>{542CB65B-8879-4130-BF8D-578B881F9805}</Project>
       <Name>DataAccessNF</Name>

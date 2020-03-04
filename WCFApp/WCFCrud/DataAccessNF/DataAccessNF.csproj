@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\Converters.cs" />
     <Compile Include="Operations\LoadOperations.cs" />
     <Compile Include="Operations\OrderOperations.cs" />
     <Compile Include="Operations\ShipmentOperations.cs" />
@@ -89,6 +90,16 @@
     <Content Include="Mappings\Load.hbm.xml" />
     <Content Include="Mappings\Shipment.hbm.xml" />
     <EmbeddedResource Include="spring-services.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelsDB\ModelsDB.csproj">
+      <Project>{712AB0E3-AA58-4A47-9CAD-4A93DFA6F381}</Project>
+      <Name>ModelsDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelsDTO\ModelsDTO.csproj">
+      <Project>{2060967A-5D7D-4016-9303-0F3B9C3F6877}</Project>
+      <Name>ModelsDTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,8 @@
-﻿using DataAccessNF.Models;
+﻿using DataAccessNF.Converter;
+using DataAccessNF.Models;
 using DataAccessNF.Repositories;
 using DataAccessNF.Services;
+using ModelsDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessNF.Operations
 {
-    public class OrderOperations : IDataRepository<ClientOrder>
+    public class OrderOperations : IDataRepository<OrderDB>
     {
-        public void Add(ClientOrder newElement)
+        public void Add(OrderDB newElement)
         {
             try
             {
@@ -19,7 +21,7 @@ namespace DataAccessNF.Operations
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        session.Save(newElement);
+                        session.Save(Converters.CastForDB(newElement));
                         transaction.Commit();
                     }
                 }
@@ -52,7 +54,7 @@ namespace DataAccessNF.Operations
             }
         }
 
-        public ClientOrder Get(int id)
+        public OrderDB Get(int id)
         {
             try
             {
@@ -60,7 +62,7 @@ namespace DataAccessNF.Operations
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                       var order = session.Get<ClientOrder>(Convert.ToInt32(id));
+                       var order = session.Get<OrderDB>(Convert.ToInt32(id));
                         return order;
                     }
                 }
@@ -71,17 +73,7 @@ namespace DataAccessNF.Operations
                 throw;
             }
         }
-
-        public IEnumerable<ClientOrder> GetAll()
-        {
-            using (var session = NHibernateSession.OpenSession())
-            {
-                var orders = session.Query<ClientOrder>().ToList();
-                return orders;
-            }
-        }
-
-        public void Update(int id, ClientOrder element)
+        public void Update(int id, OrderDB element)
         {
             try
             {
@@ -89,7 +81,7 @@ namespace DataAccessNF.Operations
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        var orderUpdate = session.Get<ClientOrder>(Convert.ToInt32(id));
+                        var orderUpdate = session.Get<OrderDB>(Convert.ToInt32(id));
                         orderUpdate.NameCompany = element.NameCompany;
                         orderUpdate.Description = element.Description;
                         orderUpdate.DestinationAddress = element.DestinationAddress;
@@ -103,7 +95,7 @@ namespace DataAccessNF.Operations
                         orderUpdate.IdLoad = element.IdLoad;
                         orderUpdate.IdShipment = element.IdShipment;
                         orderUpdate.Status = element.Status;
-                        session.Update(orderUpdate);
+                        session.Update(Converters.CastForDB(orderUpdate));
                         transaction.Commit();
                     }
                 }
@@ -112,6 +104,20 @@ namespace DataAccessNF.Operations
             {
                 Console.WriteLine(ex);
                 throw;
+            }
+        }
+
+        OrderDB IDataRepository<OrderDB>.Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<OrderDB> IDataRepository<OrderDB>.GetAll()
+        {
+            using (var session = NHibernateSession.OpenSession())
+            {
+                var orders = session.Query<ClientOrder>().ToList();
+                return Converters.CastForBL(orders);
             }
         }
     }

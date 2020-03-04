@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace WCFCrud.ModelsDTO
+namespace ModelsDTO
 {
     public class OrderDTO
     {
+        [Key]
         public int IdOrder { get; set; }
         public string NameCompany { get; set; }
         public string OriginCountry { get; set; }

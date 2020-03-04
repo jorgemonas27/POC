@@ -8,7 +8,7 @@
       NHibernate.Driver.SqlClientDriver
     </property>
     <property name="connection.connection_string">
-      Data Source=localhost\SQLEXPRESS;Initial Catalog=POC;Integrated Security=True
+      Data Source=192.168.223.128;Initial Catalog=POC;User ID=sa;Password=Control-123*
     </property>
     <property name="dialect">
       NHibernate.Dialect.MsSql2012Dialect

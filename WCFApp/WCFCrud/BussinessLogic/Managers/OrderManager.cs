@@ -1,6 +1,8 @@
-﻿using BussinessLogic.DataMembers;
+﻿using BussinessLogic.Converters;
 using DataAccessNF.Models;
 using DataAccessNF.Repositories;
+using ModelsDB;
+using ModelsDTO;
 using Spring.Context;
 using Spring.Context.Support;
 using System;
@@ -13,17 +15,16 @@ using System.Web;
 
 namespace BussinessLogic.Managers
 {
-    public class OrderManager
+    public class OrderManager : BaseManager
     {
-        private string springFactoriesFile = ConfigurationManager.AppSettings["springFactoriesFile"]; // ConfigurationManager.AppSettings["springFactoriesFile"];
-        private string springFactories = ConfigurationManager.AppSettings["springFactories"];
-        public string Save(OrderMember order)
+        private IDataRepository<OrderDB> _orderRepo;
+        public OrderManager()
         {
-            var path = HttpContext.Current.Server.MapPath("").Replace("\\WCFCrud", "");
-            var configurationPath = $@"{path}\WCFCrud\BussinessLogic\{springFactoriesFile}";
-            IApplicationContext context = new XmlApplicationContext(this.springFactories, configurationPath);
-            var orderManager = (IDataRepository<ClientOrder>)context["OrderOperations"];
-            ClientOrder newOrder = new ClientOrder() 
+            _orderRepo = (IDataRepository<OrderDB>)context["OrderOperations"];
+        }
+        public string Save(OrderDTO order)
+        {
+            OrderDB newOrder = new OrderDB() 
             {
                 IdOrder = order.IdOrder,
                 NameCompany = order.NameCompany,
@@ -40,8 +41,27 @@ namespace BussinessLogic.Managers
                 IdLoad = order.IdLoad,
                 IdShipment = order.IdShipment
             };
+
+            _orderRepo.Add(newOrder);
             return "added successfully";
-            
+        }
+
+        public IList<OrderDTO> GetData()
+        {
+            return Converters.Converter.CastOrigin(_orderRepo.GetAll());
+        }
+
+        public string Update(int id, OrderDTO updateOrder)
+        {
+            OrderDB newOrder = Converter.CastFromDTO(updateOrder);
+            _orderRepo.Update(id, newOrder);
+            return "update succcessfully";
+        }
+
+        public string Delete(int id)
+        {
+            _orderRepo.Delete(id);
+            return "delete successfully";
         }
 
     }

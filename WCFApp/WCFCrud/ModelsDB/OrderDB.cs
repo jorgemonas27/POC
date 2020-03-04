@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BussinessLogic.DataMembers
+namespace ModelsDB
 {
-    public class OrderMember
+    public class OrderDB
     {
         public int IdOrder { get; set; }
         public string NameCompany { get; set; }
