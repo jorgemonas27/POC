@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
+using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.IO;

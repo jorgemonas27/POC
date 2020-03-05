@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="DataAccessNF.Models.ClientShipment, DataAccessNF" table="FactoryShipment">
+  <class name="DataAccessNF.Models.ClientShipment, DataAccessNF" table="Shipments">
     <id name="IdShipment" column="Id" type="int">
       <generator class="assigned" />
     </id>
-    <property name="IdLoad" column="Id_Load" type="int"/>
-    <property name="Orders" column="OrdersQuantity" type="int"/>
+    <list name="Orders">
+      <key column="Id_Shipment"/>
+      <index column="ShipmentIndex"/>
+      <one-to-many class="DataAccessNF.Models.ClientOrder"/>
+    </list>
+    <property name="QuantityOrders" column="Quantity" type="int"/>
   </class>
 </hibernate-mapping>

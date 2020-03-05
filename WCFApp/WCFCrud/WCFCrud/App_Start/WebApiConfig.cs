@@ -17,6 +17,7 @@ namespace WCFCrud.App_Start
         {
             config.MapODataServiceRoute("odata", "odata", GetEdmModel());
             config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);
+
         }
 
         private static IEdmModel GetEdmModel()

@@ -20,7 +20,7 @@ namespace DataAccessNF.Models
         public virtual string DestinationState { get; set; }
         public virtual string Status { get; set; }
         public virtual string Description { get; set; }
-        public virtual int? IdShipment { get; set; }
-        public virtual int? IdLoad { get; set; }
+        public virtual int? IdShipment { get; set; } //nel
+        public virtual int? IdLoad { get; set; } //nel
     }
 }

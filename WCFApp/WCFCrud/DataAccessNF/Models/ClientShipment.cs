@@ -9,7 +9,7 @@ namespace DataAccessNF.Models
     public class ClientShipment
     {
         public virtual int IdShipment { get; set; }
-        public virtual int? IdLoad { get; set; }
-        public virtual int Orders { get; set; }
+        public virtual int QuantityOrders { get; set; }
+        public virtual IList<ClientOrder> Orders { get; set; }
     }
 }

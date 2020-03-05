@@ -10,5 +10,7 @@ namespace ModelsDTO
     {
         [Key]
         public int IdShipment { get; set; }
+        public int Quantity { get; set; }
+        public IList<OrderDTO> Orders { get; set; }
     }
 }

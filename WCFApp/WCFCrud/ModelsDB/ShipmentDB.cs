@@ -8,5 +8,8 @@ namespace ModelsDB
 {
     public class ShipmentDB
     {
+        public int IdShipment { get; set; }
+        public int Quantity { get; set; }
+        public IList<OrderDB> Orders { get; set; }
     }
 }
