@@ -1,4 +1,5 @@
-﻿using DataAccessNF.Models;
+﻿using DataAccessNF.Converter;
+using DataAccessNF.Models;
 using DataAccessNF.Repositories;
 using DataAccessNF.Services;
 using ModelsDB;
@@ -14,72 +15,30 @@ namespace DataAccessNF.Operations
     {
         public void Add(ShipmentDB newElement = null)
         {
+            throw new NotImplementedException();
+        }
+
+        public void AddList(IList<ShipmentDB> element)
+        {
             try
             {
                 using (var session = NHibernateSession.OpenSession())
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        ClientShipment ship = new ClientShipment()
+                        foreach (var item in element)
                         {
-                            Orders = new List<ClientOrder>()
-                            {
-                               new ClientOrder()
-                               {
-                                    NameCompany = "lolo",
-                                    OriginAddress = "lolo",
-                                    OriginCity = "lolo",
-                                    OriginState = "lolo",
-                                    OriginCountry = "lolo",
-                                    DestinationAddress = "lolo",
-                                    DestinationCity = "lolo",
-                                    DestinationCountry = "lolo",
-                                    DestinationState = "lolo",
-                                    Description = "lolo",
-                                    Status = "lolo",
-                               },
-                               new ClientOrder()
-                               {
-                                    NameCompany = "lolo",
-                                    OriginAddress = "lolo",
-                                    OriginCity = "lolo",
-                                    OriginState = "lolo",
-                                    OriginCountry = "lolo",
-                                    DestinationAddress = "lolo",
-                                    DestinationCity = "lolo",
-                                    DestinationCountry = "lolo",
-                                    DestinationState = "lolo",
-                                    Description = "lolo",
-                                    Status = "lolo",
-                               },
-                               new ClientOrder()
-                               {
-                                    NameCompany = "lolo",
-                                    OriginAddress = "lolo",
-                                    OriginCity = "lolo",
-                                    OriginState = "lolo",
-                                    OriginCountry = "lolo",
-                                    DestinationAddress = "lolo",
-                                    DestinationCity = "lolo",
-                                    DestinationCountry = "lolo",
-                                    DestinationState = "lolo",
-                                    Description = "lolo",
-                                    Status = "lolo",
-                               }
-                            },
-                            QuantityOrders = 3
-                        };
-                        session.Save(ship);
-                        transaction.Commit();
+                            session.Save(Converters.Cast(item));
+                            transaction.Commit();
+                        }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex);
                 throw;
             }
-            
         }
 
         public void Delete(int id)

@@ -8,6 +8,7 @@ using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,11 @@ namespace BussinessLogic.Managers
     public class OrderManager : BaseManager
     {
         private IDataRepository<OrderDB> _orderRepo;
+        private IDataRepository<ShipmentDB> _shipmentRepo;
         public OrderManager()
         {
             _orderRepo = (IDataRepository<OrderDB>)context["OrderOperations"];
+            _shipmentRepo = (IDataRepository<ShipmentDB>)context["ShipmentOperations"];
         }
         public string Save(OrderDTO order)
         {
@@ -62,6 +65,30 @@ namespace BussinessLogic.Managers
         {
             _orderRepo.Delete(id);
             return "delete successfully";
+        }
+
+        public IList<ShipmentDTO> ConsolidateOrders()
+        {
+            var list = this.GetData();
+            var grouped = list.GroupBy(x => x.DestinationState);
+            var quantity = 0;
+            var ids = 10;
+            var shipmentList = new List<ShipmentDTO>();
+            foreach (var item in grouped)
+            {
+                var shipment = new ShipmentDTO()
+                {
+                    IdShipment = ids++,
+                    Orders = item.ToList(),
+                    Quantity = quantity++
+                };
+                shipmentList.Add(shipment);
+            }
+
+            _shipmentRepo.AddList(Converter.Cast(shipmentList));
+            return shipmentList;
+
+
         }
 
     }

@@ -11,9 +11,11 @@ namespace BussinessLogic.Managers
     public class ShipmentsManager: BaseManager
     {
         private IDataRepository<ShipmentDB> _orderRepo;
+        private IDataRepository<OrderDB> _orderRepo2;
         public ShipmentsManager()
         {
             _orderRepo = (IDataRepository<ShipmentDB>)context["ShipmentOperations"];
+            _orderRepo2 = (IDataRepository<OrderDB>)context["OrderOperations"];
         }
 
         public void Save(ShipmentDB shipment = null)

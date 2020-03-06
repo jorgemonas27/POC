@@ -33,6 +33,11 @@ namespace DataAccessNF.Operations
             }
         }
 
+        public void AddList(IList<OrderDB> element)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             try

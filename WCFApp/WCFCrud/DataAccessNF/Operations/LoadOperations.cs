@@ -15,6 +15,11 @@ namespace DataAccessNF.Operations
             throw new NotImplementedException();
         }
 
+        public void AddList(IList<ClientLoad> element)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             throw new NotImplementedException();
