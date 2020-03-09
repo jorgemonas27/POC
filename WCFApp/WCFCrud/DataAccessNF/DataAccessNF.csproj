@@ -83,6 +83,7 @@
     <Compile Include="Models\ClientLoad.cs" />
     <Compile Include="Models\ClientOrder.cs" />
     <Compile Include="Models\ClientShipment.cs" />
+    <Compile Include="Operations\TextOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IDataRepository.cs" />
     <Compile Include="Services\NHibernateSession.cs" />
