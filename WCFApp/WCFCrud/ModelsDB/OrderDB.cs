@@ -16,7 +16,9 @@ namespace ModelsDB
         public string DestinationState { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
+        public int WeigthOrder { get; set; }
         public int? IdShipment { get; set; }
         public int? IdLoad { get; set; }
+        public int? CostOrder { get; set; } //nel
     }
 }

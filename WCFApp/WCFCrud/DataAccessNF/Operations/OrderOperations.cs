@@ -21,7 +21,7 @@ namespace DataAccessNF.Operations
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        session.Save(Converters.CastForDB(newElement));
+                        session.Save(Converters.Cast(newElement));
                         transaction.Commit();
                     }
                 }
@@ -100,6 +100,8 @@ namespace DataAccessNF.Operations
                         orderUpdate.IdLoad = element.IdLoad;
                         orderUpdate.IdShipment = element.IdShipment;
                         orderUpdate.Status = element.Status;
+                        orderUpdate.WeigthOrder = element.WeigthOrder;
+                        orderUpdate.CostOrder = element.CostOrder;
                         session.Update(orderUpdate);
                         transaction.Commit();
                     }
@@ -121,8 +123,11 @@ namespace DataAccessNF.Operations
         {
             using (var session = NHibernateSession.OpenSession())
             {
-                var orders = session.Query<ClientOrder>().ToList();
-                return Converters.CastForBL(orders);
+                using (var transaction = session.BeginTransaction())
+                {
+                    var orders = session.Query<ClientOrder>().ToList();
+                    return Converters.Cast(orders);
+                }
             }
         }
     }

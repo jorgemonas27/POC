@@ -10,5 +10,11 @@ namespace ModelsDTO
     {
         [Key]
         public int IdLoad { get; set; }
+        public string TruckLoad { get; set; }
+        public IList<ShipmentDTO> Shipments { get; set; }
+        public string StopsLoad { get; set; }
+        public int TotalDistanceLoad { get; set; }
+        public int? TotalCostLoad { get; set; }
+        public int QuantityShipmentsLoad { get; set; }
     }
 }

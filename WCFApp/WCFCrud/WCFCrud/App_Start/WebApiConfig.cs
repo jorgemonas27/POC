@@ -15,7 +15,7 @@ namespace WCFCrud.App_Start
     {
         public static void Register(HttpConfiguration config)
         {
-            config.MapODataServiceRoute("odata", "odata", GetEdmModel());
+            config.MapODataServiceRoute("odata", "odata", GetEdmModel(), new DefaultODataBatchHandler(GlobalConfiguration.DefaultServer));
             config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);
 
         }
@@ -28,15 +28,10 @@ namespace WCFCrud.App_Start
             builder.EntitySet<ModelsDTO.OrderDTO>("Order");
             builder.EntitySet<ModelsDTO.ShipmentDTO>("Shipment");
             builder.EntitySet<ModelsDTO.LoadDTO>("Load");
-
-            //builder.Namespace = "ServiceWebSupplyChain";
-            //builder.Function("Truck")
-            //    .Returns<Models.Truck>()
-            //    .Parameter<int>("Plate");
-            //builder.Function("Consolidate")
-            //    .Returns<List<Models.Shipment>>();
-            //builder.Function("Build")
-            //    .Returns<List<Models.Load>>();
+            builder.Function("Consolidate")
+                .Returns<List<ModelsDTO.ShipmentDTO>>();
+            builder.Function("Build")
+                .Returns<List<ModelsDTO.LoadDTO>>();
             IEdmModel edmModel = builder.GetEdmModel();
             return edmModel;
         }

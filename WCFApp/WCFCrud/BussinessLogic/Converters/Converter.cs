@@ -11,7 +11,7 @@ namespace BussinessLogic.Converters
 {
     public static class Converter
     {
-        public static IList<OrderDTO> CastOrigin(IEnumerable<OrderDB> orders)
+        public static IList<OrderDTO> Cast(IEnumerable<OrderDB> orders)
         {
             var orderList = new List<OrderDTO>();
             foreach (var order in orders)
@@ -31,14 +31,16 @@ namespace BussinessLogic.Converters
                     Description = order.Description,
                     Status = order.Status,
                     IdLoad = order.IdLoad,
-                    IdShipment = order.IdShipment
+                    IdShipment = order.IdShipment,
+                    WeigthOrder = order.WeigthOrder,
+                    CostOrder = order.CostOrder
                 };
                 orderList.Add(newObject);
             }
 
             return orderList;
         }
-        public static IList<OrderDB> CastDestiny(IEnumerable<OrderDTO> orders)
+        public static IList<OrderDB> Cast(IEnumerable<OrderDTO> orders)
         {
             var orderList = new List<OrderDB>();
             foreach (var order in orders)
@@ -58,14 +60,53 @@ namespace BussinessLogic.Converters
                     Description = order.Description,
                     Status = order.Status,
                     IdLoad = order.IdLoad,
-                    IdShipment = order.IdShipment
+                    IdShipment = order.IdShipment,
+                    WeigthOrder = order.WeigthOrder,
+                    CostOrder = order.CostOrder
                 };
                 orderList.Add(newObject);
             }
 
             return orderList;
         }
+        public static IList<LoadDTO> Cast(IEnumerable<LoadDB> loads)
+        {
+            var loadList = new List<LoadDTO>();
+            foreach (var load in loads)
+            {
+                var cast = new LoadDTO()
+                {
+                    IdLoad = load.IdLoad,
+                    Shipments = Cast(load.Shipments),
+                    StopsLoad = load.StopsLoad,
+                    TotalDistanceLoad = load.TotalDistanceLoad,
+                    TruckLoad = load.TruckLoad,
+                    QuantityShipmentsLoad = load.QuantityShipmentsLoad,
+                    TotalCostLoad = load.TotalCostLoad
+                };
+                loadList.Add(cast);
+            }
 
+            return loadList;
+        }
+
+        public static IList<ShipmentDTO> Cast(IEnumerable<ShipmentDB> orders)
+        {
+            var shipmentList = new List<ShipmentDTO>();
+            foreach (var order in orders)
+            {
+                var newObject = new ShipmentDTO()
+                {
+                    IdShipment = order.IdShipment,
+                    Orders = Cast(order.Orders),
+                    Quantity = order.Quantity,
+                    TotalWeigthOrders = order.TotalWeigthOrders
+                };
+                shipmentList.Add(newObject);
+            }
+
+            return shipmentList;
+        }
 
         public static IList<ShipmentDB> Cast(IEnumerable<ShipmentDTO> orders)
         {
@@ -74,9 +115,10 @@ namespace BussinessLogic.Converters
             {
                 var newObject = new ShipmentDB()
                 {
-                   IdShipment = order.IdShipment,
-                   Orders = CastDestiny(order.Orders),
-                   Quantity = order.Quantity
+                    IdShipment = order.IdShipment,
+                    Orders = Cast(order.Orders),
+                    Quantity = order.Quantity,
+                    TotalWeigthOrders = order.TotalWeigthOrders
                 };
                 shipmentList.Add(newObject);
             }
@@ -84,7 +126,7 @@ namespace BussinessLogic.Converters
             return shipmentList;
         }
 
-        public static OrderDB CastFromDTO(OrderDTO order)
+        public static OrderDB Cast(OrderDTO order)
         {
             var newObject = new OrderDB()
             {
@@ -101,10 +143,29 @@ namespace BussinessLogic.Converters
                 Description = order.Description,
                 Status = order.Status,
                 IdLoad = order.IdLoad,
-                IdShipment = order.IdShipment
+                IdShipment = order.IdShipment,
+                WeigthOrder = order.WeigthOrder,
+                CostOrder = order.CostOrder
             };
 
             return newObject;
+        }
+
+        public static LoadDB Cast(LoadDTO load)
+        {
+            var newObject = new LoadDB()
+            {
+                IdLoad = load.IdLoad,
+                Shipments = Cast(load.Shipments),
+                StopsLoad = load.StopsLoad,
+                TotalDistanceLoad = load.TotalDistanceLoad,
+                TruckLoad = load.TruckLoad,
+                QuantityShipmentsLoad = load.QuantityShipmentsLoad,
+                TotalCostLoad = load.TotalCostLoad
+            };
+
+            return newObject;
+
         }
     }
 }

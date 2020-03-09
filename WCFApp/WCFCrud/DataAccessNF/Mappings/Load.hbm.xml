@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="DataAccessNF.Models.ClientLoad, DataAccessNF" table="FactoryLoad">
+  <class name="DataAccessNF.Models.ClientLoad, DataAccessNF" table="Loads">
     <id name="IdLoad" column="Id" type="int">
       <generator class="assigned" />
     </id>
-    <property name="Destination" column="DestinationLoad" type="String" length="200"/>
+    <property name="TruckLoad" column="Truck" type="String" length="200"/>
+    <property name="StopsLoad" column="Stops" type="String" length="200"/>
+    <list name="Shipments">
+      <key column="LoadId"/>
+      <index column="LoadIndex"/>
+      <one-to-many class="DataAccessNF.Models.ClientShipment"/>
+    </list>
+    <property name="TotalDistanceLoad" column="TotalDistance" type="int"/>
+    <property name="TotalCostLoad" column="TotalCost" type="int"/>
+    <property name="QuantityShipmentsLoad" column="QuantityShipment" type="int"/>
   </class>
 </hibernate-mapping>

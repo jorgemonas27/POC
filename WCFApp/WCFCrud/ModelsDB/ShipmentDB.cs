@@ -10,6 +10,7 @@ namespace ModelsDB
     {
         public int IdShipment { get; set; }
         public int Quantity { get; set; }
+        public int TotalWeigthOrders { get; set; }
         public IList<OrderDB> Orders { get; set; }
     }
 }

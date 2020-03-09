@@ -29,8 +29,8 @@ namespace DataAccessNF.Operations
                         foreach (var item in element)
                         {
                             session.Save(Converters.Cast(item));
-                            transaction.Commit();
                         }
+                        transaction.Commit();
                     }
                 }
             }
@@ -43,7 +43,23 @@ namespace DataAccessNF.Operations
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var session = NHibernateSession.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        var shipment = session.Get<ClientShipment>(Convert.ToInt32(id));
+                        session.Delete(shipment);
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
         public ShipmentDB Get(int id)
@@ -53,7 +69,23 @@ namespace DataAccessNF.Operations
 
         public IEnumerable<ShipmentDB> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var session = NHibernateSession.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        var list = session.Query<ClientShipment>().ToList();
+                        return Converters.Cast(list);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
         public void Update(int id, ShipmentDB element)

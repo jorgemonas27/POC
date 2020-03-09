@@ -10,5 +10,6 @@
       <one-to-many class="DataAccessNF.Models.ClientOrder"/>
     </list>
     <property name="QuantityOrders" column="Quantity" type="int"/>
+    <property name="TotalWeigthOrders" column="TotalWeigth" type="int"/>
   </class>
 </hibernate-mapping>

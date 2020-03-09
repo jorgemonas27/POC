@@ -21,8 +21,9 @@ namespace ModelsDTO
         public string DestinationState { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
+        public  int WeigthOrder { get; set; }
         public int? IdShipment { get; set; } //nel 
         public int? IdLoad { get; set; } //nel
-
+        public int? CostOrder { get; set; } //nel
     }
 }

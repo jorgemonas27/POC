@@ -16,6 +16,8 @@
     <property name="Status" column="StatusOrder" type="String" length="200"/>
     <property name="Description" column="DescriptionOrder" type="String" length="200"/>
     <property name="IdShipment" column="Id_Shipment" type="int"/>
+    <property name="WeigthOrder" column="Weigth" type="int"/>
     <property name="IdLoad" column="Id_Load" type="int"/>
+    <property name="CostOrder" column="Cost" type="int"/>
   </class>
 </hibernate-mapping>
