@@ -10,22 +10,32 @@ using AutoMapper.QueryableExtensions;
 using AutoMapper;
 using ModelsDTO;
 using System.Web.Http;
+using System.Configuration;
+using Spring.Context;
+using Spring.Context.Support;
 
 namespace WCFCrud.Controllers
 {
     public class OrderController : ODataController
     {
-        private OrderManager _orderManager;
+        #region Config
+        private string springManagersFile = ConfigurationManager.AppSettings["springManagersFile"]; // ConfigurationManager.AppSettings["springFactoriesFile"];
+        private string springManagers = ConfigurationManager.AppSettings["springManagers"];
+        private IManager<OrderDTO> _orderManager;
+        protected IApplicationContext context;
+        #endregion
+
         public OrderController()
         {
-            _orderManager = new OrderManager();
+            context = new XmlApplicationContext(this.springManagers, this.springManagersFile);
+            _orderManager = (IManager<OrderDTO>)context["OrderManager"];
         }
-    
+
         [EnableQuery]
         [System.Web.Http.HttpGet]
         public System.Web.Http.IHttpActionResult Get()
         {
-            return Ok(_orderManager.GetData().AsQueryable());
+            return Ok(_orderManager.GetAll().AsQueryable());
         }
 
         [System.Web.Mvc.HttpPost]

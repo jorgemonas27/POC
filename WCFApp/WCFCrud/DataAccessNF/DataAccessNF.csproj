@@ -103,7 +103,6 @@
     <EmbeddedResource Include="Mappings\Shipment.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="spring-services.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelsDB\ModelsDB.csproj">

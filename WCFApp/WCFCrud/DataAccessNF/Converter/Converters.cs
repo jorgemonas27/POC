@@ -59,7 +59,8 @@ namespace DataAccessNF.Converter
                IdShipment = order.IdShipment,
                Orders = Cast(order.Orders),
                QuantityOrders = order.Quantity,
-               TotalWeigthOrders = order.TotalWeigthOrders
+               TotalWeigthOrders = order.TotalWeigthOrders,
+               IdLoad = order.IdLoad
             };
 
             return newObject;
@@ -75,7 +76,8 @@ namespace DataAccessNF.Converter
                     IdShipment = item.IdShipment,
                     Orders = Cast(item.Orders),
                     QuantityOrders = item.Quantity,
-                    TotalWeigthOrders = item.TotalWeigthOrders
+                    TotalWeigthOrders = item.TotalWeigthOrders,
+                    IdLoad = item.IdLoad
                 };
                 list.Add(newObject);
             }
@@ -113,7 +115,8 @@ namespace DataAccessNF.Converter
                     IdShipment = ships.IdShipment,
                     Orders = Cast(ships.Orders),
                     Quantity = ships.QuantityOrders,
-                    TotalWeigthOrders = ships.TotalWeigthOrders
+                    TotalWeigthOrders = ships.TotalWeigthOrders,
+                    IdLoad = ships.IdLoad
                 };
                 list.Add(ship);
             }

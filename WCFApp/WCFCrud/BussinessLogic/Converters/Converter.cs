@@ -100,7 +100,8 @@ namespace BussinessLogic.Converters
                     IdShipment = order.IdShipment,
                     Orders = Cast(order.Orders),
                     Quantity = order.Quantity,
-                    TotalWeigthOrders = order.TotalWeigthOrders
+                    TotalWeigthOrders = order.TotalWeigthOrders,
+                    IdLoad = order.IdLoad
                 };
                 shipmentList.Add(newObject);
             }
@@ -118,7 +119,8 @@ namespace BussinessLogic.Converters
                     IdShipment = order.IdShipment,
                     Orders = Cast(order.Orders),
                     Quantity = order.Quantity,
-                    TotalWeigthOrders = order.TotalWeigthOrders
+                    TotalWeigthOrders = order.TotalWeigthOrders,
+                    IdLoad = order.IdLoad
                 };
                 shipmentList.Add(newObject);
             }
@@ -165,7 +167,19 @@ namespace BussinessLogic.Converters
             };
 
             return newObject;
+        }
+        public static ShipmentDB Cast(ShipmentDTO shipment)
+        {
+            var newObject = new ShipmentDB()
+            {
+                IdLoad = shipment.IdLoad,
+                Quantity = shipment.Quantity,
+                TotalWeigthOrders = shipment.TotalWeigthOrders,
+                IdShipment = shipment.IdShipment,
+                Orders = Cast(shipment.Orders)
+            };
 
+            return newObject;
         }
     }
 }

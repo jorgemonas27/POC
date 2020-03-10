@@ -12,14 +12,12 @@ namespace BussinessLogic.Managers
 {
     public class BaseManager
     {
-        private string springFactoriesFile = ConfigurationManager.AppSettings["springFactoriesFile"]; // ConfigurationManager.AppSettings["springFactoriesFile"];
-        private string springFactories = ConfigurationManager.AppSettings["springFactories"];
+        private string springOperationsFile = ConfigurationManager.AppSettings["springOperationsFile"];
+        private string springOperations = ConfigurationManager.AppSettings["springOperations"];
         protected IApplicationContext context;
         public BaseManager()
         {
-            var path = springFactoriesFile.Replace("\\WCFCrud", "");
-            //var configurationPath = $@"{path}\WCFCrud\BussinessLogic\{springFactoriesFile}";
-            context = new XmlApplicationContext(this.springFactories, this.springFactoriesFile);
+            context = new XmlApplicationContext(this.springOperations, this.springOperationsFile);
         }
 
     }

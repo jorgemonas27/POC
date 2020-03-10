@@ -97,6 +97,7 @@ namespace DataAccessNF.Operations
                         orderUpdate.OriginCity = element.OriginCity;
                         orderUpdate.OriginAddress = element.OriginAddress;
                         orderUpdate.OriginCountry = element.OriginCountry;
+                        orderUpdate.OriginState = element.OriginState;
                         orderUpdate.IdLoad = element.IdLoad;
                         orderUpdate.IdShipment = element.IdShipment;
                         orderUpdate.Status = element.Status;

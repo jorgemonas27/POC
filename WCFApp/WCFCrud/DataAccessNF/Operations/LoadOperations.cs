@@ -64,13 +64,12 @@ namespace DataAccessNF.Operations
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        var load = session.Get<LoadDB>(id);
-                        session.Save(Converters.Cast(load));
+                        var load = session.Get<ClientLoad>(id);
+                        session.Delete(load);
                         transaction.Commit();
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine(ex);

@@ -90,7 +90,28 @@ namespace DataAccessNF.Operations
 
         public void Update(int id, ShipmentDB element)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var session = NHibernateSession.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        var shipmentUpdate = session.Get<ClientShipment>(id);
+                        shipmentUpdate.IdShipment = element.IdShipment;
+                        shipmentUpdate.Orders = Converters.Cast(element.Orders);
+                        shipmentUpdate.QuantityOrders = element.Quantity;
+                        shipmentUpdate.TotalWeigthOrders = element.TotalWeigthOrders;
+                        shipmentUpdate.IdLoad = element.IdLoad;
+                        session.Update(shipmentUpdate);
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
     }
 }

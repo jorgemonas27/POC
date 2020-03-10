@@ -12,6 +12,7 @@ namespace ModelsDTO
         public int IdShipment { get; set; }
         public int Quantity { get; set; }
         public int TotalWeigthOrders { get; set; }
+        public int? IdLoad { get; set; }
         public IList<OrderDTO> Orders { get; set; }
     }
 }

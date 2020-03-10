@@ -9,21 +9,24 @@ using System.Threading.Tasks;
 
 namespace BussinessLogic.Managers
 {
-    public class ShipmentsManager: BaseManager
+    public class ShipmentsManager: BaseManager, IManager<ShipmentDTO>
     {
         private IDataRepository<ShipmentDB> _shipmentRepo;
         private IDataRepository<OrderDB> _orderRepo;
+        private IDataRepository<LoadDB> _loadRepo;
         private int totalWeigth = 0;
 
         public ShipmentsManager()
         {
             _shipmentRepo = (IDataRepository<ShipmentDB>)context["ShipmentOperations"];
             _orderRepo = (IDataRepository<OrderDB>)context["OrderOperations"];
+            _loadRepo = (IDataRepository<LoadDB>)context["LoadOperations"];
         }
 
-        public void Save(ShipmentDB shipment = null)
+        public string Save(ShipmentDTO shipment = null)
         {
-            _shipmentRepo.Add(shipment);
+            _shipmentRepo.Add(Converters.Converter.Cast(shipment));
+            return "added succesfully";
         }
 
         public IList<ShipmentDTO> Consolidate()
@@ -54,15 +57,76 @@ namespace BussinessLogic.Managers
 
         }
 
-        public IList<ShipmentDTO> GetAll()
+        public IList<object> GetDetails()
         {
-            return Converters.Converter.Cast(_shipmentRepo.GetAll());
+            throw new NotImplementedException();
         }
 
         public string Delete(int id)
         {
             _shipmentRepo.Delete(id);
+            var list = _orderRepo.GetAll().ToList().GroupBy(x => x.IdShipment).Where(y => y.Key == id);
+            foreach (var item in list)
+            {
+                item.ToList().ForEach(x =>
+                {
+                    x.IdShipment = null;
+                    this.Update(id, x);
+                });
+            }
             return "delete succesfully";
+        }
+
+        public string Update(int id, OrderDB order)
+        {
+            _orderRepo.Update(id, order);
+            return "updated succesfully";
+        }
+
+        public string Update(int id, ShipmentDTO updateElement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<ShipmentDTO> Build()
+        {
+            throw new NotImplementedException();
+        }
+
+        IList<ShipmentDTO> IManager<ShipmentDTO>.GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<ShipmentDetailsDTO> IManager<ShipmentDTO>.GetDetails()
+        {
+            var list = _orderRepo.GetAll();
+            var shipmentRepo = _shipmentRepo.GetAll();
+            var inner = from iten in list
+                        join shipmentitem in shipmentRepo on iten.IdShipment equals shipmentitem.IdShipment
+                        select new ShipmentDetailsDTO()
+                        {
+                            IdShipment = shipmentitem.IdShipment,
+                            IdOrder = iten.IdOrder,
+                            DestinationCity = iten.DestinationCity,
+                            DestinationState = iten.DestinationState,
+                            Status = iten.Status,
+                            NameCompany = iten.NameCompany,
+                            NumberOfOrders = shipmentitem.Orders.Count,
+                            TotalWeigthOrders = shipmentitem.TotalWeigthOrders
+                        };
+
+            return inner;
+        }
+
+        public IList<LoadDetailsDTO> GetLoadDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<LoadDetailsDTO> IManager<ShipmentDTO>.GetLoadDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,7 +16,7 @@ using System.Web;
 
 namespace BussinessLogic.Managers
 {
-    public class OrderManager : BaseManager
+    public class OrderManager : BaseManager, IManager<OrderDTO>
     {
         private IDataRepository<OrderDB> _orderRepo;
         private IDataRepository<ShipmentDB> _shipmentRepo;
@@ -32,7 +32,7 @@ namespace BussinessLogic.Managers
             return "added successfully";
         }
 
-        public IList<OrderDTO> GetData()
+        public IList<OrderDTO> GetAll()
         {
             return Converters.Converter.Cast(_orderRepo.GetAll());
         }
@@ -48,6 +48,26 @@ namespace BussinessLogic.Managers
         {
             _orderRepo.Delete(id);
             return "delete successfully";
+        }
+
+        public IList<OrderDTO> Consolidate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<OrderDTO> Build()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<LoadDetailsDTO> IManager<OrderDTO>.GetLoadDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ShipmentDetailsDTO> GetDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Managers\BaseManager.cs" />
+    <Compile Include="Managers\IManager.cs" />
     <Compile Include="Managers\LoadManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Managers\ShipmentsManager.cs" />
