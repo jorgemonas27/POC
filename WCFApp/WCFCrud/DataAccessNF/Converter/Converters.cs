@@ -130,26 +130,30 @@ namespace DataAccessNF.Converter
             var list = new List<OrderDB>();
             foreach (var order in clientOrders)
             {
-                var newobj = new OrderDB()
+                if (order != null)
                 {
-                    IdOrder = order.IdOrder,
-                    NameCompany = order.NameCompany,
-                    OriginAddress = order.OriginAddress,
-                    OriginCity = order.OriginCity,
-                    OriginState = order.OriginState,
-                    OriginCountry = order.OriginCountry,
-                    DestinationAddress = order.DestinationAddress,
-                    DestinationCity = order.DestinationCity,
-                    DestinationCountry = order.DestinationCountry,
-                    DestinationState = order.DestinationState,
-                    Description = order.Description,
-                    Status = order.Status,
-                    IdLoad = order.IdLoad,
-                    IdShipment = order.IdShipment,
-                    WeigthOrder = order.WeigthOrder,
-                    CostOrder = order.CostOrder
-                };
-                list.Add(newobj);
+                    var newobj = new OrderDB()
+                    {
+                        IdOrder = order.IdOrder,
+                        NameCompany = order.NameCompany,
+                        OriginAddress = order.OriginAddress,
+                        OriginCity = order.OriginCity,
+                        OriginState = order.OriginState,
+                        OriginCountry = order.OriginCountry,
+                        DestinationAddress = order.DestinationAddress,
+                        DestinationCity = order.DestinationCity,
+                        DestinationCountry = order.DestinationCountry,
+                        DestinationState = order.DestinationState,
+                        Description = order.Description,
+                        Status = order.Status,
+                        IdLoad = order.IdLoad,
+                        IdShipment = order.IdShipment,
+                        WeigthOrder = order.WeigthOrder,
+                        CostOrder = order.CostOrder
+                    };
+                    list.Add(newobj);
+                }
+
             }
             return list;
 

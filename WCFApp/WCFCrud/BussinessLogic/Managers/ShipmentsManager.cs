@@ -100,16 +100,16 @@
         /// <returns>The <see cref="string"/></returns>
         public string Delete(int id)
         {
-            _shipmentRepo.Delete(id);
             var list = _orderRepo.GetAll().ToList().GroupBy(x => x.IdShipment).Where(y => y.Key == id);
             foreach (var item in list)
             {
                 item.ToList().ForEach(x =>
                 {
                     x.IdShipment = null;
-                    this.Update(id, x);
+                    this.Update(id, x);    
                 });
             }
+            _shipmentRepo.Delete(id);
             return "delete succesfully";
         }
 

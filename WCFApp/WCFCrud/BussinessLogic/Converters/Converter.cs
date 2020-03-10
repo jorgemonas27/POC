@@ -16,26 +16,29 @@ namespace BussinessLogic.Converters
             var orderList = new List<OrderDTO>();
             foreach (var order in orders)
             {
-                var newObject = new OrderDTO()
+                if (order != null)
                 {
-                    IdOrder = order.IdOrder,
-                    NameCompany = order.NameCompany,
-                    OriginAddress = order.OriginAddress,
-                    OriginCity = order.OriginCity,
-                    OriginState = order.OriginState,
-                    OriginCountry = order.OriginCountry,
-                    DestinationAddress = order.DestinationAddress,
-                    DestinationCity = order.DestinationCity,
-                    DestinationCountry = order.DestinationCountry,
-                    DestinationState = order.DestinationState,
-                    Description = order.Description,
-                    Status = order.Status,
-                    IdLoad = order.IdLoad,
-                    IdShipment = order.IdShipment,
-                    WeigthOrder = order.WeigthOrder,
-                    CostOrder = order.CostOrder
-                };
-                orderList.Add(newObject);
+                    var newObject = new OrderDTO()
+                    {
+                        IdOrder = order.IdOrder,
+                        NameCompany = order.NameCompany,
+                        OriginAddress = order.OriginAddress,
+                        OriginCity = order.OriginCity,
+                        OriginState = order.OriginState,
+                        OriginCountry = order.OriginCountry,
+                        DestinationAddress = order.DestinationAddress,
+                        DestinationCity = order.DestinationCity,
+                        DestinationCountry = order.DestinationCountry,
+                        DestinationState = order.DestinationState,
+                        Description = order.Description,
+                        Status = order.Status,
+                        IdLoad = order.IdLoad,
+                        IdShipment = order.IdShipment,
+                        WeigthOrder = order.WeigthOrder,
+                        CostOrder = order.CostOrder
+                    };
+                    orderList.Add(newObject);
+                }
             }
 
             return orderList;

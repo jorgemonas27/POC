@@ -6,6 +6,7 @@
     using ModelsDTO;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Defines the <see cref="OrderManager" />
@@ -72,6 +73,19 @@
         /// <returns>The <see cref="string"/></returns>
         public string Delete(int id)
         {
+            var list = _shipmentRepo.GetAll();
+            foreach (var item in list)
+            {
+                item.Orders.ToList().ForEach(x =>
+                {
+                    if (x.IdOrder == id)
+                    {
+                        item.Quantity = item.Quantity -1;
+                        item.TotalWeigthOrders = item.TotalWeigthOrders - x.WeigthOrder;
+                        _shipmentRepo.Update(item.IdShipment, item);
+                    }
+                });
+            }
             _orderRepo.Delete(id);
             return "delete successfully";
         }
