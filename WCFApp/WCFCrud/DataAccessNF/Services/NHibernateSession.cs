@@ -1,22 +1,23 @@
-﻿using NHibernate;
-using NHibernate.Cfg;
-using NServiceBus;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-
-namespace DataAccessNF.Services
+﻿namespace DataAccessNF.Services
 {
+    using NHibernate;
+    using NHibernate.Cfg;
+    using System.Web;
+
+    /// <summary>
+    /// Defines the <see cref="NHibernateSession" />
+    /// </summary>
     public class NHibernateSession
     {
+        /// <summary>
+        /// The OpenSession method will initialize the NHibernate connection
+        /// </summary>
+        /// <returns>The <see cref="ISession"/></returns>
         public static ISession OpenSession()
         {
             var configuration = new Configuration();
             var path = HttpContext.Current.Server.MapPath("")
-                .Replace("odata","").Replace("\\WCFCrud","").Replace("Order","").Replace("Shipment","").Replace("Load","");
+                .Replace("odata", "").Replace("\\WCFCrud", "").Replace("Order", "").Replace("Shipment", "").Replace("Load", "");
             var configurationPath = $@"{path}\WCFCrud\DataAccessNF\hibernate.cfg.xml";
             configuration.Configure(configurationPath);
             var orderConfigurationFile = $@"{path}\WCFCrud\DataAccessNF\Mappings\Order.hbm.xml";

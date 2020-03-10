@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
-  <object name="OrderOperations" type="DataAccessNF.Operations.OrderOperations, DataAccessNF" singleton="true" />
+  <object name="OrderOperations" type="DataAccessNF.Operations.TextOperation, DataAccessNF" singleton="true" />
   <object name="ShipmentOperations" type="DataAccessNF.Operations.ShipmentOperations, DataAccessNF" singleton="true" />
   <object name="LoadOperations" type="DataAccessNF.Operations.LoadOperations, DataAccessNF" singleton="true" />
 </objects>

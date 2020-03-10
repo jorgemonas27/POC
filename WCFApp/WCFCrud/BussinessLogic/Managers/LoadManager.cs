@@ -1,26 +1,61 @@
-﻿using DataAccessNF.Repositories;
-using ModelsDB;
-using ModelsDTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BussinessLogic.Managers
+﻿namespace BussinessLogic.Managers
 {
+    using DataAccessNF.Repositories;
+    using ModelsDB;
+    using ModelsDTO;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    /// <summary>
+    /// Defines the <see cref="LoadManager" />
+    /// </summary>
     public class LoadManager : BaseManager, IManager<LoadDTO>
     {
+        /// <summary>
+        /// Defines the _truck
+        /// </summary>
         private readonly string _truck = "Truck: Tonka 23S Capacity Weigth: 2700, Containers: 5 ";
+
+        /// <summary>
+        /// Defines the _loadRepo
+        /// </summary>
         private IDataRepository<LoadDB> _loadRepo;
+
+        /// <summary>
+        /// Defines the _shipmentRepo
+        /// </summary>
         private IDataRepository<ShipmentDB> _shipmentRepo;
+
+        /// <summary>
+        /// Defines the _orderRepo
+        /// </summary>
         private IDataRepository<OrderDB> _orderRepo;
 
+        /// <summary>
+        /// Defines the stops
+        /// </summary>
         private StringBuilder stops = new StringBuilder();
+
+        /// <summary>
+        /// Defines the _distance
+        /// </summary>
         private int _distance = 2500;
+
+        /// <summary>
+        /// Defines the _ids
+        /// </summary>
         private int _ids = 20;
+
+        /// <summary>
+        /// Defines the _totalCost
+        /// </summary>
         private int? _totalCost = 0;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadManager"/> class.
+        /// </summary>
         public LoadManager()
         {
             _shipmentRepo = (IDataRepository<ShipmentDB>)context["ShipmentOperations"];
@@ -28,6 +63,11 @@ namespace BussinessLogic.Managers
             _orderRepo = (IDataRepository<OrderDB>)context["OrderOperations"];
         }
 
+        /// <summary>
+        /// The Save method will send a new load resource to be created into the database
+        /// </summary>
+        /// <param name="order">The order<see cref="LoadDTO"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public string Save(LoadDTO order)
         {
             var newOrder = Converters.Converter.Cast(order);
@@ -35,27 +75,41 @@ namespace BussinessLogic.Managers
             return "added successfully";
         }
 
+        /// <summary>
+        /// The GetAll method will retrieve a list of all the loads
+        /// </summary>
+        /// <returns>The <see cref="IList{LoadDTO}"/></returns>
         public IList<LoadDTO> GetAll()
         {
             return Converters.Converter.Cast(_loadRepo.GetAll());
         }
 
+        /// <summary> 
+        /// The Delete method will delete a specific load from the database
+        /// </summary>
+        /// <param name="id">The id<see cref="int"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public string Delete(int id)
         {
-            _loadRepo.Delete(id);
-            var list = _shipmentRepo.GetAll().ToList().GroupBy(x => x.IdShipment).Where(z => z.Key == id);
+            var list = _shipmentRepo.GetAll().ToList().GroupBy(x => x.IdLoad);
             foreach (var item in list)
             {
-                item.ToList().ForEach(x =>
+                if (item.Key == id)
                 {
-                    x.IdLoad = null;
-                    this.Update(x.IdShipment, x);
-                    this.Update(x.Orders);
-                });
+                    item.ToList().ForEach(x =>
+                    {
+                        this.Update(x.Orders);
+                    });
+                }
             }
+            _loadRepo.Delete(id);
             return "delete successfully";
         }
 
+        /// <summary>
+        /// The Build method will do the logic to group all the orders and retrieve a list of loads 
+        /// </summary>
+        /// <returns>The <see cref="IList{LoadDTO}"/></returns>
         public IList<LoadDTO> Build()
         {
             var shipments = _shipmentRepo.GetAll();
@@ -84,7 +138,7 @@ namespace BussinessLogic.Managers
                     QuantityShipmentsLoad = item.ToList().Count,
                     TotalCostLoad = _totalCost
                 };
-                
+
                 list.Add(newObj);
                 stops = new StringBuilder();
                 _totalCost = 0;
@@ -95,12 +149,23 @@ namespace BussinessLogic.Managers
             return Converters.Converter.Cast(list);
         }
 
+        /// <summary>
+        /// The Update method will upate a certain shipment that exists into a deleted load
+        /// </summary>
+        /// <param name="id">The id<see cref="int"/></param>
+        /// <param name="shipment">The shipment<see cref="ShipmentDB"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public string Update(int id, ShipmentDB shipment)
         {
             _shipmentRepo.Update(id, shipment);
             return "updated succesfully";
         }
 
+        /// <summary>
+        /// The Update will update an order that exists into some deleted load
+        /// </summary>
+        /// <param name="shipment">The shipment<see cref="IList{OrderDB}"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public string Update(IList<OrderDB> shipment)
         {
             foreach (var ship in shipment)
@@ -110,26 +175,49 @@ namespace BussinessLogic.Managers
             }
             return "updated succesfully";
         }
+
+        /// <summary>
+        /// The Update
+        /// </summary>
+        /// <param name="id">The id<see cref="int"/></param>
+        /// <param name="updateElement">The updateElement<see cref="LoadDTO"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public string Update(int id, LoadDTO updateElement)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// The Consolidate
+        /// </summary>
+        /// <returns>The <see cref="IList{LoadDTO}"/></returns>
         public IList<LoadDTO> Consolidate()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// The GetDetails
+        /// </summary>
+        /// <returns>The <see cref="IList{object}"/></returns>
         public IList<object> GetDetails()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// The GetDetails
+        /// </summary>
+        /// <returns>The <see cref="IEnumerable{ShipmentDetailsDTO}"/></returns>
         IEnumerable<ShipmentDetailsDTO> IManager<LoadDTO>.GetDetails()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// The GetLoadDetails will retrieve a list of details of the loads
+        /// </summary>
+        /// <returns>The <see cref="IEnumerable{LoadDetailsDTO}"/></returns>
         public IEnumerable<LoadDetailsDTO> GetLoadDetails()
         {
             var shipmentRepo = _shipmentRepo.GetAll();
@@ -139,7 +227,7 @@ namespace BussinessLogic.Managers
 
             var inner = from iten in orderRepo
                         join shipmentitem in shipmentRepo on iten.IdLoad equals shipmentitem.IdLoad
-                        join loaditem in loadsRepo on shipmentitem.IdLoad equals loaditem.IdLoad  
+                        join loaditem in loadsRepo on shipmentitem.IdLoad equals loaditem.IdLoad
                         select new LoadDetailsDTO()
                         {
                             IdLoad = loaditem.IdLoad,
